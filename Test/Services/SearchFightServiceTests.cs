@@ -16,7 +16,7 @@ namespace Test.Services
         public async Task SearchFight()
         {
             string cSharp = "C#";
-            int cSharpGoogleTotal = 20000;
+            int cSharpGoogleTotal = 25000;
             int cSharpBingTotal = 50000;
 
             string js = "JavaScript";
@@ -61,6 +61,7 @@ namespace Test.Services
 
             Assert.AreEqual(js, result.GoogleWinner);
             Assert.AreEqual(cSharp, result.BingWinner);
+            Assert.AreEqual(cSharp, result.TotalWinner);
         }
     }
 }

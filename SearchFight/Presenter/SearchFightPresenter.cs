@@ -38,6 +38,7 @@ namespace SearchFight.Presenter
                 Console.WriteLine();
                 Console.WriteLine("Google Winner: " + result.GoogleWinner);
                 Console.WriteLine("Bing Winner: " + result.BingWinner);
+                Console.WriteLine("Total Winner: " + result.TotalWinner);
             }
             catch (Exception ex)
             {

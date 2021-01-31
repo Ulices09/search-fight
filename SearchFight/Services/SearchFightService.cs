@@ -22,6 +22,8 @@ namespace SearchFight.Services
             int googleTotal = 0;
             string bingWinner = "";
             int bingTotal = 0;
+            string totalWinner = "";
+            int total = 0;
 
             var results = new List<ProgrammingLanguageResult>();
 
@@ -41,6 +43,14 @@ namespace SearchFight.Services
                     bingTotal = result.BingTotal;
                 }
 
+                int totalResult = result.GoogleTotal + result.BingTotal;
+
+                if (totalResult > total)
+                {
+                    totalWinner = result.ProgrammingLanguage;
+                    total = totalResult;
+                }
+
                 results.Add(result);
             }
 
@@ -48,7 +58,8 @@ namespace SearchFight.Services
             {
                 ProgrammingLanguageResults = results,
                 BingWinner = bingWinner,
-                GoogleWinner = googleWinner
+                GoogleWinner = googleWinner,
+                TotalWinner = totalWinner,
             };
         }
     }
