@@ -3,6 +3,7 @@ using SearchFight.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SearchFight.Presenter
 {
@@ -15,7 +16,7 @@ namespace SearchFight.Presenter
             this.searchFightService = searchFightService;
         }
 
-        public void SearchFight(string[] programmingLanguages)
+        public async Task SearchFight(string[] programmingLanguages)
         {
             if (programmingLanguages.Length == 0)
             {
@@ -23,7 +24,7 @@ namespace SearchFight.Presenter
                 return;
             }
 
-            var result = searchFightService.SearchFight(programmingLanguages);
+            var result = await searchFightService.SearchFight(programmingLanguages);
 
             foreach (var item in result.ProgrammingLanguageResults)
             {

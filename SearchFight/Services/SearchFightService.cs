@@ -3,6 +3,7 @@ using SearchFight.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SearchFight.Services
 {
@@ -15,7 +16,7 @@ namespace SearchFight.Services
             this.searchService = searchService;
         }
 
-        public SearchFightResult SearchFight(string[] programmingLanguages)
+        public async Task<SearchFightResult> SearchFight(string[] programmingLanguages)
         {
             string googleWinner = "";
             int googleTotal = 0;
@@ -26,7 +27,7 @@ namespace SearchFight.Services
 
             foreach (var language in programmingLanguages)
             { 
-                var result = searchService.SearchProgrammingLanguageResults(language);
+                var result = await searchService.SearchProgrammingLanguageResults(language);
 
                 if (result.GoogleTotal > googleTotal)
                 {

@@ -1,29 +1,34 @@
 ﻿using SearchFight.Core.Models;
+using SearchFight.HttpClients.Interfaces;
 using SearchFight.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SearchFight.Services
 {
     public class SearchService : ISearchService
     {
-        public SearchService()
+        private readonly ISearchHttpClient searchHttpClient;
+        public SearchService(ISearchHttpClient searchHttpClient)
         {
-
+            this.searchHttpClient = searchHttpClient;
         }
 
-        public ProgrammingLanguageResult SearchProgrammingLanguageResults(string programmingLanguage)
+        public async Task<ProgrammingLanguageResult> SearchProgrammingLanguageResults(string programmingLanguage)
         {
-            Random random = new Random();
-            int randomBing = random.Next(0, 10000000);
-            int randomGoogle = random.Next(0, 10000000);
+            int bingTotal = await searchHttpClient
+                .GetBingResults(programmingLanguage);
+
+            int googleTotal = await searchHttpClient.
+                GetGoogleResults(programmingLanguage);
 
             return new ProgrammingLanguageResult
             {
                 ProgrammingLanguage = programmingLanguage,
-                BingTotal = randomBing,
-                GoogleTotal = randomGoogle,
+                BingTotal = bingTotal,
+                GoogleTotal = googleTotal,
             };
         }
     }
