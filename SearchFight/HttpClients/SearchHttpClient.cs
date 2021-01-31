@@ -55,12 +55,5 @@ namespace SearchFight.HttpClients
 
             throw new Exception("Bing Search API error");
         }
-
-        private int GetFakeResult()
-        {
-            Random random = new Random();
-            int total = random.Next(0, 10000000);
-            return total;
-        }
     }
 }
