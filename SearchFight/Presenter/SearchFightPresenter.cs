@@ -1,4 +1,5 @@
-﻿using SearchFight.Presenter.Interfaces;
+﻿using SearchFight.Core.Models;
+using SearchFight.Presenter.Interfaces;
 using SearchFight.Services.Interfaces;
 using System;
 using System.Collections.Generic;

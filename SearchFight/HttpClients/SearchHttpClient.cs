@@ -1,4 +1,5 @@
-﻿using SearchFight.HttpClients.Interfaces;
+﻿using SearchFight.Core.Models;
+using SearchFight.HttpClients.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -11,9 +12,12 @@ namespace SearchFight.HttpClients
     public class SearchHttpClient : ISearchHttpClient
     {
         private readonly HttpClient httpClient;
-        public SearchHttpClient(HttpClient httpClient) 
+        private readonly Configuration configuration;
+
+        public SearchHttpClient(HttpClient httpClient, Configuration configuration)
         {
             this.httpClient = httpClient;
+            this.configuration = configuration;
         }
 
         public async Task<int> GetGoogleResults(string programmingLanguage)
@@ -21,7 +25,7 @@ namespace SearchFight.HttpClients
             var query = HttpUtility.UrlEncode(programmingLanguage);
             var url = "https://www.google.com/search?q=" + query;
             var html = await httpClient.GetStringAsync(url);
-            // TODO: Web Scrapping
+            
             // Fake result
             int total = GetFakeResult();
             return total;
@@ -32,7 +36,7 @@ namespace SearchFight.HttpClients
             var query = HttpUtility.UrlEncode(programmingLanguage);
             var url = "https://www.bing.com/search?q=" + query;
             var html = await httpClient.GetStringAsync(url);
-            // TODO: Web Scrapping
+            
             // Fake result
             int total = GetFakeResult();
             return total;

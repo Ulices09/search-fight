@@ -11,6 +11,7 @@ namespace SearchFight.Services
     public class SearchService : ISearchService
     {
         private readonly ISearchHttpClient searchHttpClient;
+        
         public SearchService(ISearchHttpClient searchHttpClient)
         {
             this.searchHttpClient = searchHttpClient;
