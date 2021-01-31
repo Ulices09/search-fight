@@ -6,6 +6,7 @@ using SearchFight.Presenter.Interfaces;
 using SearchFight.Services;
 using SearchFight.Services.Interfaces;
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace SearchFight
@@ -27,6 +28,7 @@ namespace SearchFight
                 .AddScoped<ISearchFightService, SearchFightService>()
                 .AddScoped<ISearchService, SearchService>()
                 .AddScoped<ISearchHttpClient, SearchHttpClient>()
+                .AddScoped<HttpClient>()
                 .BuildServiceProvider();
         }
     }

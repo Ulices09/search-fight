@@ -10,17 +10,16 @@ namespace SearchFight.HttpClients
 {
     public class SearchHttpClient : ISearchHttpClient
     {
-        public SearchHttpClient() 
+        private readonly HttpClient httpClient;
+        public SearchHttpClient(HttpClient httpClient) 
         {
-            
+            this.httpClient = httpClient;
         }
 
         public async Task<int> GetGoogleResults(string programmingLanguage)
         {
             var query = HttpUtility.UrlEncode(programmingLanguage);
             var url = "https://www.google.com/search?q=" + query;
-
-            var httpClient = new HttpClient();
             var html = await httpClient.GetStringAsync(url);
             // TODO: Web Scrapping
             // Fake result
@@ -32,8 +31,6 @@ namespace SearchFight.HttpClients
         {
             var query = HttpUtility.UrlEncode(programmingLanguage);
             var url = "https://www.bing.com/search?q=" + query;
-
-            var httpClient = new HttpClient();
             var html = await httpClient.GetStringAsync(url);
             // TODO: Web Scrapping
             // Fake result
