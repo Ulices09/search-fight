@@ -2,10 +2,12 @@
 using SearchFight.HttpClients.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using Newtonsoft.Json;
 
 namespace SearchFight.HttpClients
 {
@@ -23,12 +25,17 @@ namespace SearchFight.HttpClients
         public async Task<int> GetGoogleResults(string programmingLanguage)
         {
             var query = HttpUtility.UrlEncode(programmingLanguage);
-            var url = "https://www.google.com/search?q=" + query;
-            var html = await httpClient.GetStringAsync(url);
+            var url = $"https://www.googleapis.com/customsearch/v1?key={configuration.GoogleSearchApiKey}&cx={configuration.GoogleSearchEngineId}&start=1&q={query}";
+            var response = await httpClient.GetAsync(url);
             
-            // Fake result
-            int total = GetFakeResult();
-            return total;
+            if(response.StatusCode == HttpStatusCode.OK)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<GoogleSearchResponse>(content);
+                return Convert.ToInt32(data.SearchInformation.totalResults);
+            }
+
+            throw new Exception("Goole Search API error");
         }
 
         public async Task<int> GetBingResults(string programmingLanguage)

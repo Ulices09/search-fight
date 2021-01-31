@@ -2,7 +2,7 @@
   "profiles": {
     "SearchFight": {
       "commandName": "Project",
-      "commandLineArgs": ".net \"java script\""
+      "commandLineArgs": "c# java"
     }
   }
 }

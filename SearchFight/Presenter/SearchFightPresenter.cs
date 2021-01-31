@@ -39,9 +39,9 @@ namespace SearchFight.Presenter
                 Console.WriteLine("Google Winner: " + result.GoogleWinner);
                 Console.WriteLine("Bing Winner: " + result.BingWinner);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Console.WriteLine("Something went wrong");
+                Console.WriteLine("Something went wrong: " + ex.Message);
             }
 
             
