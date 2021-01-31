@@ -41,12 +41,19 @@ namespace SearchFight.HttpClients
         public async Task<int> GetBingResults(string programmingLanguage)
         {
             var query = HttpUtility.UrlEncode(programmingLanguage);
-            var url = "https://www.bing.com/search?q=" + query;
-            var html = await httpClient.GetStringAsync(url);
-            
-            // Fake result
-            int total = GetFakeResult();
-            return total;
+            var url = $"https://api.bing.microsoft.com/v7.0/search?q={query}";
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
+            request.Headers.Add("Ocp-Apim-Subscription-Key", configuration.BingSearchApiKey);
+            var response = await httpClient.SendAsync(request);
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<BingSearchResponse>(content);
+                return data.WebPages.TotalEstimatedMatches;
+            }
+
+            throw new Exception("Bing Search API error");
         }
 
         private int GetFakeResult()
