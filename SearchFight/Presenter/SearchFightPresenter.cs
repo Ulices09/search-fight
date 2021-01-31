@@ -24,17 +24,26 @@ namespace SearchFight.Presenter
                 return;
             }
 
-            var result = await searchFightService.SearchFight(programmingLanguages);
-
-            foreach (var item in result.ProgrammingLanguageResults)
+            try
             {
-                Console.WriteLine(item.ProgrammingLanguage + ":");
-                Console.WriteLine("    Google: " + item.GoogleTotal + " Bing: " + item.BingTotal);
+                var result = await searchFightService.SearchFight(programmingLanguages);
+
+                foreach (var item in result.ProgrammingLanguageResults)
+                {
+                    Console.WriteLine(item.ProgrammingLanguage + ":");
+                    Console.WriteLine("    Google: " + item.GoogleTotal + " Bing: " + item.BingTotal);
+                }
+
+                Console.WriteLine();
+                Console.WriteLine("Google Winner: " + result.GoogleWinner);
+                Console.WriteLine("Bing Winner: " + result.BingWinner);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Something went wrong");
             }
 
-            Console.WriteLine();
-            Console.WriteLine("Google Winner: " + result.GoogleWinner);
-            Console.WriteLine("Bing Winner: " + result.BingWinner);
+            
         }
     }
 }
